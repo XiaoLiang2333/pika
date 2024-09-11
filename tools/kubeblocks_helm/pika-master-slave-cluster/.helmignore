@@ -10,7 +10,7 @@
 .hg/
 .hgignore
 .svn/
-# Common  files
+# Common backup files
 *.swp
 *.bak
 *.tmp

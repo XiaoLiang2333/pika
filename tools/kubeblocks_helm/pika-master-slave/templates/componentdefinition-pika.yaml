@@ -20,12 +20,12 @@ spec:
   updateStrategy: Serial
   configs:
     - name: pika-config
-      templateRef: pika-conf-template
+      templateRef: pika-master-slave-conf-template
       namespace: {{ .Release.Namespace }}
       volumeName: config
   scripts:
     - name: pika-script
-      templateRef: pika-script-template
+      templateRef: pika-master-slave-script-template
       namespace: {{ .Release.Namespace }}
       volumeName: script
       defaultMode: 0555

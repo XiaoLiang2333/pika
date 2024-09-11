@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "pika-cluster.name" -}}
+{{- define "pika.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "pika-cluster.fullname" -}}
+{{- define "pika.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "pika-cluster.chart" -}}
+{{- define "pika.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "pika-cluster.labels" -}}
-helm.sh/chart: {{ include "pika-cluster.chart" . }}
-{{ include "pika-cluster.selectorLabels" . }}
+{{- define "pika.labels" -}}
+helm.sh/chart: {{ include "pika.chart" . }}
+{{ include "pika.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,18 +45,18 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "pika-cluster.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "pika-cluster.name" . }}
+{{- define "pika.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "pika.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
-{{- define "clustername" -}}
-{{ include "pika-cluster.fullname" .}}
-{{- end}}
-
 {{/*
-Create the name of the service account to use
+Define image
 */}}
-{{- define "pika-cluster.serviceAccountName" -}}
-{{- default (printf "kb-%s" (include "clustername" .)) .Values.serviceAccount.name }}
+{{- define "pika.image" -}}
+{{ .Values.image.pika.registry | default "docker.io" }}/{{ .Values.image.pika.repository }}:{{ .Values.image.pika.tag }}
+{{- end }}
+
+{{- define "pika.imagePullPolicy" -}}
+{{ .Values.image.pika.pullPolicy | default "IfNotPresent" }}
 {{- end }}

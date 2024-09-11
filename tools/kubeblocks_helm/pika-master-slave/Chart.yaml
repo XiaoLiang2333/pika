@@ -1,6 +1,6 @@
 apiVersion: v2
-name: pika-master-slave
-description: A Pika Master-Slave Group Helm chart for KubeBlocks.
+name: pika
+description: A Pika Master Slave Group definition Helm chart for Kubernetes
 
 type: application
 
@@ -15,7 +15,6 @@ keywords:
   - database
   - nosql
   - replication
-  - codis
 
 maintainers:
   - name: pika

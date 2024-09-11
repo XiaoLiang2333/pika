@@ -33,6 +33,11 @@ kubectl port-forward svc/pika-cluster-codis-proxy 19000
 # start new terminal
 redis-cli -p 19000 info
 ```
+### uninstall pika cluster
+```bash
+helm uninstall pika-cluster
+helm uninstall pika
+```
 
 ## Scale pika cluster
 
@@ -65,4 +70,10 @@ kubectl get pods --watch
 kubectl port-forward svc/pika-master-slave-pika 9221
 #start new terminal
 redis-cli -p 9221
+```
+
+### uninstall pika master-slave-cluster
+```bash
+helm uninstall pika-master-slave-cluster
+helm uninstall pika-master-slave
 ```
